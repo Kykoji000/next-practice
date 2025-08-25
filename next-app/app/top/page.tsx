@@ -1,16 +1,15 @@
 "use client";
 
-function Page(){
+function Page() {
     return (
-        <button
-            className="w-fit p-3 rounded-xl border fonr-bold"
-            onClick={() =>{
-                alert("ボタンが押されました");
+        <input
+            className="p-2 rounded-xl border"
+            
+            onChange={(e) => {
+                alert(e.target.value);
             }}
-        >
-            ボタン
-        </button>
-    );
+        />
+    )
 }
 
 export default Page;
