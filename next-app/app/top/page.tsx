@@ -1,16 +1,20 @@
 "use client";
 
+import { useState } from "react";
+
 function Page() {
+    const [text, setText] = useState("");
+
     return (
-        <form
-            onSubmit={() => {
-                alert("送信しました");
-            }}
-        >
-            <label htmlFor="name">名前: </label>
-            <input className="p-1 rounded-xl border" name="name" />
-            <button className="p-1 rounded-xl border">送信</button>
-        </form>
+        <div>
+            <input
+                className="p-2rounded-xl border"
+                onChange={(e) =>{
+                    setText(e.target.value);
+                }}
+            />
+            <p>入力値: {text}</p>
+        </div>
     );
 }
 
