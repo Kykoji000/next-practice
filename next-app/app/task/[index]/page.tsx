@@ -64,7 +64,54 @@ function Page({ params }: Props) {
                 >
                     戻る
                 </Button>
+                <div className="flex gap-2">
+                    <Button onClick={() => setIsOpen(true)}>編集</Button>
+                    <Button
+                        onClick={() => {
+                            const newTasks = tasks.filter((_, i) => i !== index);
+                            localStorage.setItem("tasks", JSON.stringify(newTasks));
+                            router.push("/task");
+                        }}
+                    >
+                    削除
+                    </Button>
+                </div>
             </div>
+            {isOpen && (
+                <Modal onClose={() => setIsOpen(false)}>
+                    <form className="flex flex-col gap-4 text-black border-black"></form>
+                        <div className="flex flex-col gap-2">
+                            <label>タスク名</label>
+                            <input
+                                className="border p-2 rounded-xl"
+                                value={task.title}
+                                onChange={(e) => setTask({...task, title: e.target.value})}
+                            />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            <label>内容</label>
+                            <textarea
+                                className="border p-2 rounded-xl"
+                                value={task.content}
+                                onChange={(e) => setTask({...task, content: e.target.value})}
+                            />
+                        </div>
+                        <div className="flex justify-end gap-4">
+                            <Button onClick={() => setIsOpen(false)}>キャンセル</Button>
+                            <Button
+                                onClick={() => {
+                                    const newTasks = tasks.map((t, i) =>
+                                        i === index ? task : t
+                                    );
+                                    localStorage.setItem("tasks", JSON.stringify(newTasks));
+                                    router.push("/task");
+                                }}
+                            >
+                                更新
+                            </Button>
+                        </div>
+                </Modal>
+            )}
         </div>
     );
 }
